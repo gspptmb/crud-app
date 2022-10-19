@@ -12,4 +12,4 @@ app.listen(port, () => {
     console.log(`server is listening on port ${port}!`);
 });
 
-app.use('/api', require('./api/routes'));
+app.use('/api', require('../handlers/services/routes'));

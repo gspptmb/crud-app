@@ -2,9 +2,8 @@
   "name": "crud-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "start:dev": " JWT=shh nodemon server",
+    "start:dev": " JWT=shh nodemon src/handlers/server.js",
     "make-model": "npx sequelize-cli model:generate --name User --attributes username:string,password:string",
     "migrate": "npx sequelize-cli db:migrate",
     "down": "npx sequelize-cli db:migrate:undo",

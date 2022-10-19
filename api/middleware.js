@@ -1,4 +1,4 @@
-const { User } = require('../db/models');
+const { User } = require('../src/models');
 
 const isLoggedIn = async (req, res, next) => {
     try {

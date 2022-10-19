@@ -23,7 +23,7 @@ router.post('/authenticate', async (req, res, next) => {
 router.post('/register', async (req, res, next) => {
   try {
       const user = await User.create(req.body);
-      res.status(200).send({ token: await User.generateToken() });
+      res.status(200).send({ token: await user.generateToken() });
   } catch (err) {
       next(err);
   }

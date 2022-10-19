@@ -13,17 +13,6 @@ const SALT_ROUNDS = 5;
       }
   };
 
-  //Instance method to compare the user enetered password to the hashed password using bcrypt.
-  User.prototype.correctPassword = function (unknownPass) {
-      return bcrypt.compare(unknownPass, this.password);
-  };
-
-  /*Instance method to generate jwt after correctpassword validates, token will be sent to the 
-  frontend until user's session is terminated. 
-  */
-  User.prototype.generateToken = function () {
-      return jwt.sign({ id: this.id }, process.env.JWT_SECRET);
-  };
 
   //Class method used for checking if the user's account exists.
   User.authenticate = async function ({ username, password }) {

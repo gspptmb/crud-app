@@ -4,6 +4,7 @@ const {
     updateUser,
     deleteExistingUser,
 } = require('../src/services/users/write');
+const { fetchAllUsers, fetchOneUser } = require('../src/services/users/read');
 const { up: table } = require('../db/migrations/20221009185040-create-user');
 const { up: seed } = require('../db/seeders/20221009185356-users');
 const Sequelize = require('sequelize');
@@ -106,4 +107,21 @@ describe('Write Service', () => {
         await deleteExistingUser(id);
         expect(await User.findOne({ where: id })).toBeFalsy();
     });
+});
+
+describe('Read Service', () => {
+    it('should fetch all users', async () => {
+        const users = await fetchAllUsers();
+        expect(users.length).toEqual(3);
+    });
+    it('should fetch one user', async () => {
+        //Use Jill's id to check fetchOne
+        const user = await fetchOneUser(2);
+        expect(user).toBeTruthy;
+        expect(user.username).toEqual('Jill');
+    });
+});
+
+describe('Middleware Service', () => {
+    it('should find user by token and return the user', () => {});
 });

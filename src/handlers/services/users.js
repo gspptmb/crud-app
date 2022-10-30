@@ -40,7 +40,7 @@ router.post('/register', async (req, res, next) => {
 //User Routes
 router.get('/one_user_byToken', isLoggedIn, async (req, res, next) => {
     try {
-        res.status(200).send(await fetchOneUser(req.user));
+        res.status(200).send(await fetchOneUser(req.user.id));
     } catch (err) {
         next(err);
     }
@@ -70,4 +70,4 @@ router.patch('/user', isLoggedIn, async (req, res, next) => {
     }
 });
 
-module.exports = router;
+module.exports = { router, isLoggedIn };

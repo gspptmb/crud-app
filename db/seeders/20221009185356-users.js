@@ -1,25 +1,19 @@
-const { User } = require('../../src/models/user');
+const { registerUser } = require('../../src/services/users/write');
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await Promise.all([
-            User.create({
+            await registerUser({
                 username: 'Jack',
                 password: '123',
-                createdAt: new Date(),
-                updatedAt: new Date(),
             }),
-            User.create({
+            registerUser({
                 username: 'Jill',
                 password: '123',
-                createdAt: new Date(),
-                updatedAt: new Date(),
             }),
-            User.create({
+            registerUser({
                 username: 'John',
                 password: '123',
-                createdAt: new Date(),
-                updatedAt: new Date(),
             }),
         ]);
     },

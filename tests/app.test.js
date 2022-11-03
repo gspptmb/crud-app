@@ -1,10 +1,13 @@
-const { User, sequelize } = require('../src/models/index');
+const { User, sequelize } = require('../src/api/models/index');
 const {
     registerUser,
     updateUser,
     deleteExistingUser,
-} = require('../src/services/users/write');
-const { fetchAllUsers, fetchOneUser } = require('../src/services/users/read');
+} = require('../src/api/services/users/write');
+const {
+    fetchAllUsers,
+    fetchOneUser,
+} = require('../src/api/services/users/read');
 const { up: table } = require('../db/migrations/20221009185040-create-user');
 const { up: seed } = require('../db/seeders/20221009185356-users');
 const Sequelize = require('sequelize');
@@ -38,24 +41,36 @@ afterAll(async () => {
 describe('Auth Service', () => {
     it('should login user and return jwt', async () => {
         expect(
-            await User.authenticate(truthy_user, truthy_password)
+            await User.authenticate({
+                username: truthy_user,
+                password: truthy_password,
+            })
         ).toBeTruthy();
     });
 
     it('should throw error if username incorrect', async () => {
-        expect(await User.authenticate(falsey_user, truthy_password)).toEqual(
-            Error('Invalid password or username.')
-        );
+        expect(
+            await User.authenticate({
+                username: falsey_user,
+                password: truthy_password,
+            })
+        ).toEqual(Error('Invalid password or username.'));
     });
 
     it('should throw error if password incorrect', async () => {
-        expect(await User.authenticate(truthy_user, falsey_password)).toEqual(
-            Error('Invalid password or username.')
-        );
+        expect(
+            await User.authenticate({
+                username: truthy_user,
+                password: falsey_password,
+            })
+        ).toEqual(Error('Invalid password or username.'));
     });
     it('should find user by token', async () => {
         //authenticate registered user and generate token.
-        const token = await User.authenticate(truthy_user, truthy_password);
+        const token = await User.authenticate({
+            username: truthy_user,
+            password: truthy_password,
+        });
         expect(await User.findByToken(token)).toBeTruthy();
     });
     it('should throw error if token is invalid', async () => {
@@ -65,7 +80,10 @@ describe('Auth Service', () => {
         );
     });
     it('should return the same user that was authenticated', async () => {
-        const token = await User.authenticate(truthy_user, truthy_password);
+        const token = await User.authenticate({
+            username: truthy_user,
+            password: truthy_password,
+        });
         const user = await User.findByToken(token);
         expect(user.id).toEqual(1);
     });
@@ -120,8 +138,4 @@ describe('Read Service', () => {
         expect(user).toBeTruthy;
         expect(user.username).toEqual('Jill');
     });
-});
-
-describe('Middleware Service', () => {
-    it('should find user by token and return the user', () => {});
 });

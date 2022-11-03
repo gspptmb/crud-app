@@ -1,8 +1,8 @@
 const { User } = require('../../models/index');
 
 const registerUser = async (credentials) => {
-    const { username } = credentials;
-    const { password } = credentials;
+    const { username, password } = credentials;
+
     if (await User.findOne({ where: { username } })) {
         return Error('This user is already activated.');
     } else {

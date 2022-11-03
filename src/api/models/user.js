@@ -36,7 +36,8 @@ frontend until user's session is terminated.
     };
 
     //Class method used for checking if the user's account exists.
-    User.authenticate = async function (username, password) {
+    User.authenticate = async function (payload) {
+        const { username, password } = payload;
         //Check to see if username exists in the db.
         const user = await User.findOne({ where: { username } });
         //If username is false or password is incorrect, tell the user their inputs will not work.

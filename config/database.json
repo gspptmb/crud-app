@@ -9,7 +9,6 @@
     "test": {
         "dialect": "sqlite",
         "storage": ":memory:"
-
     },
     "production": {
         "username": "root",

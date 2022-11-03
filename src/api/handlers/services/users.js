@@ -70,4 +70,4 @@ router.patch('/user', isLoggedIn, async (req, res, next) => {
     }
 });
 
-module.exports = { router, isLoggedIn };
+module.exports = router;

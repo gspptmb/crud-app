@@ -4,8 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 //Send incoming routes to specific files
-router.use('/users', require('../../handlers/services/users'));
-router.use('/auth', require('../../handlers/services/users'));
+router.use('/users', require('./users'));
 
 //Error handler
 router.use((req, res, next) => {

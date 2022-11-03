@@ -1,4 +1,4 @@
-const { registerUser } = require('../../src/services/users/write');
+const { registerUser } = require('../../src/api/services/users/write');
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
